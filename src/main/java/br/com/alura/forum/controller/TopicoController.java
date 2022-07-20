@@ -17,12 +17,12 @@ public class TopicoController {
     @RequestMapping("/topicos")
 
     public List<TopicoDto> Lista(){
-        Topico topico = new Topico("Duvida", "Duvida de Springboot", new Curso("Springboot","Programação"));
+        Topico topico = new Topico("Duvida!", "Duvida de Springboot", new Curso("Springboot","Programação"));
         Topico topico2 = new Topico("Devtools", "Duvida de devtools", new Curso("Springboot","Programação"));
         Topico topico3 = new Topico("Devtools dnovo", "Duvida de devtools denovo", new Curso("Springboot","Programação"));
 
 
-        return Arrays.asList(topico, topico2, topico3);
+        return TopicoDto.converter(Arrays.asList(topico, topico2, topico3));
     }
 
 }
