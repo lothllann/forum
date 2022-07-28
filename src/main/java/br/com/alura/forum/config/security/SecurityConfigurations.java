@@ -22,7 +22,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET,"/topicos").permitAll()
-                .antMatchers(HttpMethod.GET,"/topicos/*").permitAll();
+                .antMatchers(HttpMethod.GET,"/topicos/*").permitAll()
+                .anyRequest().authenticated()
+                .and().formLogin();
     }
 
     //CONFIGURAÇÃODE RECURSOS ESTATICOS(JS,CSS,HTML)
