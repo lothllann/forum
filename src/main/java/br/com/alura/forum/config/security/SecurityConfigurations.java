@@ -20,6 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     @Autowired
     private AutenticacaoService autenticacaoService;
+    @Autowired
+    private TokenService tokenService;
 
     @Override
     @Bean
@@ -37,6 +39,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     //CONFIGURAÇÃO DE AUTORIZAÇÃO
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET,"/topicos").permitAll()
                 .antMatchers(HttpMethod.GET,"/topicos/*").permitAll()
@@ -44,7 +47,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new AutenticacaoViaTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
     }
 
     //CONFIGURAÇÃODE RECURSOS ESTATICOS(JS,CSS,HTML)
